@@ -1,0 +1,27 @@
+{
+  "name": "preorder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.8.0",
+    "@nuxt/ui": "^2.18.5",
+    "@nuxtjs/sitemap": "^6.0.1",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "coolsms-node-sdk": "^2.1.0",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.3",
+    "nuxt": "^3.13.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  }
+}
