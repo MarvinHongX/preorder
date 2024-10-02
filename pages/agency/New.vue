@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import { newAgency } from '@/commons/commonService';
 
 definePageMeta({
-    middleware: ['auth']
+    middleware: ['auth', 'admin-only']
 });
 
 const phoneCountries = usePhoneCountries();

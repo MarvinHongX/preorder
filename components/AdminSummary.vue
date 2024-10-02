@@ -28,7 +28,7 @@ const { myOrderUrl, reserveFundsUrl, customerOrderUrl, pendingPaymentUrl } = use
           <img :src="myOrderUrl" alt="my order icon" class="mr-2 w-6 h-6"/>
           <h3 class="text-sm">에이전시</h3>
         </div>
-        <p class="m-1 text-m sm:text-sm">{{ props.agencyCnt }}</p>
+        <p class="m-1 text-m sm:text-sm">{{ props.agencyCnt }}명</p>
       </div>
     </div>
 

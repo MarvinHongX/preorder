@@ -53,7 +53,6 @@ export const getAgency = async (
 export const getMenuItems = () => {
     const menuItems = [
         { label: '구매확인', path: '/tracking' },
-        { label: '에이전시', path: '/agency' },
     ];
     return menuItems;
 };
@@ -93,7 +92,8 @@ export const getOrdersByNameAndPhone = (
 export const getOrdersByAgency = (
     referralCode, 
     loading1, 
-    orders
+    orders,
+    customers
 ) => {
     if (referralCode) {
         $fetch(`/api/order/referralCodeOrders`, 
@@ -105,6 +105,22 @@ export const getOrdersByAgency = (
             })
             .then((response) => {
                 orders.value = response;
+
+                const customerSet = new Set();
+                response.forEach(order => {
+                    const customerKey = `${order.name}|${order.phoneNumber}|${order.phoneCountry}`;
+                    customerSet.add(customerKey);
+                });
+
+                customers.value = Array.from(customerSet).map(customer => {
+                    const [name, phoneNumber, phoneCountry] = customer.split('|');
+                    return {
+                        name,      
+                        phoneNumber,
+                        phoneCountry
+                    };
+                });
+
                 if (loading1.value) loading1.value = false;
             })
             .catch(error => {
@@ -192,3 +208,28 @@ export const newAgency = async (agencyForm) => {
     }
     return false; 
 };
+
+
+export const updateOrder = async (seq, depositStatus, deliveryStatus) => {
+    if (seq && depositStatus && deliveryStatus) {
+        try {
+            const response = await $fetch(`/api/order/update`, {
+                method: 'POST',
+                body: { 
+                    orderForm: {
+                        seq: seq,
+                        depositStatus: depositStatus,  
+                        deliveryStatus: deliveryStatus, 
+                    },
+                }
+            });
+            return response;  
+        } catch (error) {
+            console.error('Error update payment status:', error);
+            return false;  
+        }
+    }
+    return false; 
+};
+
+

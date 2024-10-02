@@ -29,6 +29,7 @@ This table stores information related to customer orders, including the quantity
 - `delivery_status` (`CHAR(1)`): Indicates delivery status. Default is 'N' (not yet delivered).
 - `ordDt` (`DATE`): Date the order was placed.
 - `regDt` (`DATETIME`): Date and time the order was registered in the system.
+- `modDt` (`DATETIME`): Date and time the order was modified in the system.
 
 #### SQL Command:
 
@@ -47,7 +48,8 @@ CREATE TABLE t_order (
   deposit_status CHAR(1) DEFAULT 'N',  -- 'N' indicates waiting for deposit
   delivery_status CHAR(1) DEFAULT 'N',  -- 'N' indicates not yet delivered
   ordDt DATE,          -- Date of order placement
-  regDt DATETIME       -- Date and time when the order was registered
+  regDt DATETIME,      -- Date and time when the order was registered
+  modDt DATETIME
 );
 ```
 
@@ -64,6 +66,8 @@ This table stores information about the agencies placing orders. Each agency has
 - `phone_number` (`VARCHAR(15)`): Unique phone number for each agency.
 - `referral_code` (`VARCHAR(64)`): Unique referral code assigned to the agency.
 - `password` (`VARCHAR(255)`): Hashed password for the agency's login.
+- `regDt` (`DATETIME`): Date and time the order was registered in the system.
+- `modDt` (`DATETIME`): Date and time the order was modified in the system.
 
 #### SQL Command:
 
@@ -75,6 +79,8 @@ CREATE TABLE t_agency (
   phone_country VARCHAR(10),
   phone_number VARCHAR(15) UNIQUE,  -- Unique phone number for each agency
   referral_code VARCHAR(64) UNIQUE, -- Unique referral code for the agency
-  password VARCHAR(255)  -- Hashed password for agency login
+  password VARCHAR(255),  -- Hashed password for agency login
+  regDt DATETIME,         -- Date and time when the order was registered
+  modDt DATETIME
 );
 ```

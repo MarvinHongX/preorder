@@ -1,4 +1,4 @@
-import { newOrder, getOrdersByNameAndPhone, getOrdersByReferralCode, getAllOrders } from "@/server/models/order";
+import { newOrder, getOrdersByNameAndPhone, getOrdersByReferralCode, getAllOrders, updateOrder } from "@/server/models/order";
 
 
 const nameAndPhoneOrders = async (body) => {
@@ -49,7 +49,17 @@ const submitOrder = async (body) => {
     return order;
 };
 
+const editOrder = async (body) => {
+    if (!body.orderForm) return null;
+    const ok = await updateOrder(body.orderForm);
+    if (!ok) {
+        throw new Error("update order failed");
+    }
+    
+    return ok;
+};
 
 
 
-export { nameAndPhoneOrders, referralCodeOrders, allOrders, submitOrder }
+
+export { nameAndPhoneOrders, referralCodeOrders, allOrders, submitOrder, editOrder }

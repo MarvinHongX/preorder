@@ -17,11 +17,11 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-        title: 'ROAM | XR7(MAX7)',
+        title: 'Roam RX7(MAX70)',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'ROAM | XR7(MAX7) Preorder' },
+            { hid: 'description', name: 'description', content: 'Roam RX7(MAX70) Preorder' },
           ],
     }
 },

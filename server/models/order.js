@@ -56,7 +56,7 @@ const getOrdersByNameAndPhone = async (name, phoneCountry, phoneNumber) => {
                 order_quantity as orderQuantity,
                 depositor_name as depositorName,
                 referral_code as referralCode,
-                deposit_status as depositorStatus,
+                deposit_status as depositStatus,
                 delivery_status as deliveryStatus,
                 DATE_FORMAT(ordDt, '%Y-%m-%d') as ordDt
             FROM t_order WHERE name = ? AND phone_country = ? AND phone_number = ?
@@ -85,11 +85,11 @@ const getOrdersByReferralCode = async (referralCode) => {
                 order_quantity as orderQuantity,
                 depositor_name as depositorName,
                 referral_code as referralCode,
-                deposit_status as depositorStatus,
+                deposit_status as depositStatus,
                 delivery_status as deliveryStatus,
                 DATE_FORMAT(ordDt, '%Y-%m-%d') as ordDt
             FROM t_order WHERE referral_code = ?
-            order by ordDt desc, seq desc;
+            order by name asc, phone_number asc, ordDt desc, seq desc;
             `,
             [referralCode]
         );
@@ -117,7 +117,7 @@ const getAllOrders = async (referralCode) => {
                 B.name as agencyName,
                 B.phone_country as agencyPhoneCountry,
                 B.phone_number as agencyPhoneNumber,
-                A.deposit_status as depositorStatus,
+                A.deposit_status as depositStatus,
                 A.delivery_status as deliveryStatus,
                 DATE_FORMAT(A.ordDt, '%Y-%m-%d') as ordDt
             FROM t_order A LEFT JOIN t_agency B ON A.referral_code = B.referral_code
@@ -133,4 +133,43 @@ const getAllOrders = async (referralCode) => {
     }
 };
 
-export { newOrder, getOrdersByNameAndPhone, getOrdersByReferralCode, getAllOrders }
+
+const updateOrder = async (orderForm) => {
+    const { seq, depositStatus, deliveryStatus } = orderForm;
+
+    if (!seq) {
+        throw new Error('Order sequence (seq) is required for updating.');
+    }
+
+    const newOrderData = {
+        seq,
+        deposit_status: depositStatus,
+        delivery_status: deliveryStatus,
+    };
+
+    try {
+        const result = await pool.query(`
+            UPDATE t_order SET 
+                deposit_status = ?,
+                delivery_status = ?,
+                modDt = now()
+            WHERE seq = ?
+            `, 
+            [
+                newOrderData.deposit_status, 
+                newOrderData.delivery_status, 
+                newOrderData.seq
+            ]
+        );
+        if (result.affectedRows === 0) {
+            throw new Error(`No order found with sequence ${newOrderData.seq}.`);
+        }
+        return true;
+
+    } catch (error) {
+        console.error(`Error updating order with seq ${newOrderData.seq}:`, error);
+        throw error;
+    }
+};
+
+export { newOrder, getOrdersByNameAndPhone, getOrdersByReferralCode, getAllOrders, updateOrder }
