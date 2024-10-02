@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 const menuItems = useMenuItems();
-const { logoUrl, myOrderUrl, customerOrderUrl, deliveryInfoUrl } = useImg();
+const { logoUrl, adminUrl, agencyUrl, newAgencyUrl } = useImg();
 const { authAgency, signOut, agencyAdmin } = await useAgency();
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -92,7 +92,7 @@ const isOutsideClicked = (event) => {
                                             @click="goToAgencyPage"
                                             class="flex text-left px-0 py-2 rounded"
                                         >
-                                            <img :src="deliveryInfoUrl" alt="에이전시" class="w-6 h-6 mr-2" />
+                                            <img :src="agencyUrl" alt="에이전시" class="w-6 h-6 mr-2" />
                                             에이전시
                                         </button>
                                         <button
@@ -100,7 +100,7 @@ const isOutsideClicked = (event) => {
                                             @click="goToAgencyAdminPage"
                                             class="flex text-left px-0 py-2 rounded"
                                         >
-                                            <img :src="customerOrderUrl" alt="에이전시" class="w-6 h-6 mr-2" />
+                                            <img :src="adminUrl" alt="에이전시" class="w-6 h-6 mr-2" />
                                             관리자 페이지
                                         </button>
                                         <button
@@ -108,7 +108,7 @@ const isOutsideClicked = (event) => {
                                             @click="goToAgencyNewPage"
                                             class="flex text-left px-0 py-2 rounded"
                                         >
-                                            <img :src="myOrderUrl" alt="에이전시" class="w-6 h-6 mr-2" />
+                                            <img :src="newAgencyUrl" alt="에이전시" class="w-6 h-6 mr-2" />
                                             에이전시 등록
                                         </button>
                                     </div>

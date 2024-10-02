@@ -50,6 +50,15 @@ export const useImg = () => {
     const roam07Url = computed(() => {
         return `/layout/images/roam/roam_07.jpg`;
     });
+    const adminUrl = computed(() => {
+        return `/layout/images/agency/admin.svg`;
+    });
+    const agencyUrl = computed(() => {
+        return `/layout/images/agency/agency.svg`;
+    });
+    const newAgencyUrl = computed(() => {
+        return `/layout/images/agency/newAgency.svg`;
+    });
     return {
         logoUrl,
         gotoUrl,
@@ -68,6 +77,9 @@ export const useImg = () => {
         roam05Url,
         roam06Url,
         roam07Url,
+        adminUrl,
+        agencyUrl,
+        newAgencyUrl
     };
 };
 
