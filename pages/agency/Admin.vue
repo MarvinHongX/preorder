@@ -119,7 +119,8 @@ const getRowSpan = (index) => {
 };
 
 const updatePaymentStatus = async (status) => {
-  const selectedOrders = orders.value.filter((_, index) => checkedOrders.value[index]);
+  const selectedOrders = filteredOrders.value.filter((_, index) => checkedOrders.value[index]);
+  
 
   if (selectedOrders.length === 0) {
     alert('선택된 항목이 없습니다.');
